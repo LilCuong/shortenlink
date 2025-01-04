@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+<title>Dashboard - NiceAdmin Bootstrap Template</title>
+<meta content="" name="description">
+<meta content="" name="keywords">
+
+<div th:replace="~{Admin/Fragment/element :: head}"></div>
+</head>
+
+<body>
+
+	<!-- ======= Header ======= -->
+	<div th:replace="~{Admin/Fragment/element :: header}"></div>
+	<!-- ======= Header ======= -->
+	<!-- End Header -->
+	<div th:replace="~{Admin/Fragment/element :: sidebar}"></div>
+
+	<main id="main" class="main">
+
+		<div class="pagetitle">
+			<h1>Uniform resource locator</h1>
+			<nav>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+					<li class="breadcrumb-item active">URL</li>
+				</ol>
+			</nav>
+		</div>
+		<!-- End Page Title -->
+
+		<section class="section dashboard">
+			<div class="row">
+
+				<!-- Left side columns -->
+				<div class="col-lg-12">
+
+					<div class="row">
+
+						<div class="col-lg-12">
+							<div class="card">
+
+								<div class="card-body">
+									<h5 class="card-title">Tên miền</h5>
+									<form method="post" action="/admin/domain/save">
+										<div class="mb-3">
+											 <input type="text" class="form-control" required="required"
+												id="exampleInputEmail1" aria-describedby="emailHelp" th:value="${domain.domain}" name="domain">
+											<div id="emailHelp" class="form-text d-flex">Nhập tên miền của bạn đang sử dụng, nhập tên miền dưới dạng <p class="fw-bold px-1"> https// + tên miền + /</p> hoặc <p class="fw-bold px-1">tên miền + /</p></div>
+										</div>
+										<button type="submit" class="btn btn-success">Lưu tên miền</button>
+									</form>
+								</div>
+							</div>
+						</div>
+						
+						
+						
+						<div class="col-lg-12">
+
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Tống tất cả Link</h5>
+							
+
+							<!-- Table with stripped rows -->
+							<table class="table datatable" id="example">
+								<thead>
+									<tr>
+									<th >#</th>
+										<th>Link gốc</th>
+										<th>Link được rút gọn</th>
+										<th>Tùy chỉnh</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="link : ${links}">
+									<td th:text="${link.id}"></td>
+									<td th:text="${link.link}"></td>
+									<td th:text="${link.shortenLink}"></td>
+									<td >
+									<button type="button" class="btn btn-danger"
+												data-bs-toggle="modal"
+												th:attr="data-bs-target='#basicModal-' + ${link.id}">
+												<i class="ri-delete-bin-4-fill"></i>
+											</button>
+											<form>
+												<div class="modal fade" th:id="'basicModal-' + ${link.id}"
+													tabindex="-1">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h5 class="modal-title text-danger" name="name">
+																	Xác nhận xóa link
+																	<span class="fw-bold" th:text="'#' + ${link.id}"></span>
+																	
+																</h5>
+																<button type="button" class="btn-close"
+																	data-bs-dismiss="modal" aria-label="Close"></button>
+															</div>
+															<div class="modal-body">
+																
+																<p>
+																	Xóa link
+																	<span class="fw-bold" th:text="${link.link}"></span>
+																	và không thể truy cập lại?
+																</p>
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-secondary"
+																	data-bs-dismiss="modal">Close</button>
+																<a class="btn btn-danger"
+																	th:href="@{/admin/link/delete/{id} (id=${link.id})}">
+																	Xác nhận xóa </a>
+															</div>
+														</div>
+													</div>
+												</div>
+												<!-- End Basic Modal-->
+											</form>
+									</td>
+									</tr>
+									
+									
+								</tbody>
+							</table>
+							<!-- End Table with stripped rows -->
+<button type="button" class="btn btn-outline-danger"
+												data-bs-toggle="modal"
+												th:attr="data-bs-target='#basicModal-delete'">
+												Xóa tất cả
+											</button>
+											<form>
+												<div class="modal fade" th:id="'basicModal-delete'"
+													tabindex="-1">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h5 class="modal-title text-danger" name="name">
+																	Xác nhận xóa tất cả
+																	
+																	
+																</h5>
+																<button type="button" class="btn-close"
+																	data-bs-dismiss="modal" aria-label="Close"></button>
+															</div>
+															<div class="modal-body">
+																
+																<p>
+																	Xóa tất cả link và không thể truy cập lại?
+																</p>
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-secondary"
+																	data-bs-dismiss="modal">Close</button>
+																<a class="btn btn-danger"
+																	th:href="@{/admin/link/delete-all}">
+																	Xác nhận xóa </a>
+															</div>
+														</div>
+													</div>
+												</div>
+												<!-- End Basic Modal-->
+											</form>
+						</div>
+					</div>
+					
+
+				</div>
+
+					</div>
+				</div>
+
+			</div>
+		</section>
+
+	</main>
+	<!-- End #main -->
+
+	<!-- ======= Footer ======= -->
+	<div th:replace="~{Admin/Fragment/element :: bag}"></div>
+	<!-- ======= Footer ======= -->
+	<div th:replace="~{Admin/Fragment/element :: footer}">
+</body>
+
+</html>
